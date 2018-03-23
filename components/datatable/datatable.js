@@ -1629,6 +1629,18 @@
                 }
 
                 return value.toString().toLowerCase().indexOf(filter) !== -1;
+            },
+
+            exact: function(value, filter) {
+                if(filter === undefined || filter === null || $.trim(filter) === '') {
+                    return true;
+                }
+
+                if(value === undefined || value === null) {
+                    return false;
+                }
+
+                return value.toString().toLowerCase() === filter;
             }
 
         },
