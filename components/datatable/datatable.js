@@ -275,7 +275,7 @@
 
                 if(col.filter) {
                     $this.hasFiltering = true;
-
+                    
                     var filterElement = $('<input type="text" class="ui-column-filter" />').puiinputtext().data({
                         'field': col.field,
                         'filtermatchmode': col.filterMatchMode||'startsWith'
@@ -286,6 +286,20 @@
                             return col.filterFunction.call($this, dataValue, filterValue);
                         });
                     }
+                }
+
+                if (col.filterSelect) {
+                    $this.hasFiltering = true;
+
+                    var filterElement = $('<select class="ui-column-filter">')
+                    for (var key in col.filterSelect) {
+                        var displayValue = col.filterSelect[key];
+                        filterElement.append('<option value=' + key + '>' + displayValue + '</option>');
+                    }
+                    filterElement.append('</select>').data({
+                        'field': col.field,
+                        'filtermatchmode': col.filterMatchMode||'exact'
+                    }).appendTo(cell);
                 }
             });
         },
@@ -1506,7 +1520,7 @@
             var $this = this;
             this.filterElements = this.thead.find('.ui-column-filter');
 
-            this.filterElements.on('keyup', function() {
+            this.filterElements.on('keyup change', function() {
                         if($this.filterTimeout) {
                             clearTimeout($this.filterTimeout);
                         }
@@ -1517,6 +1531,8 @@
                         },
                         $this.options.filterDelay);
                     });
+
+            
 
             if(this.options.globalFilter) {
                 $(this.options.globalFilter).on('keyup.puidatatable', function() {
@@ -1539,6 +1555,8 @@
                     element: filterElement
                 });
             }
+
+            
 
             if(this.options.lazy) {
                 this.options.datasource.call(this, this._onLazyLoad, this._createStateMeta());
