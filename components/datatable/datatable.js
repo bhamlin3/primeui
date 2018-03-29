@@ -932,6 +932,30 @@
             return this.tbody.children('.ui-expanded-row');
         },
 
+        expandAllRows: function() {
+            var $this = this;
+
+            this.getCollapsedRows().each(function () {
+                var collapsedRow = $(this);
+                $this.loadExpandedRowContent(collapsedRow);
+
+                var columns = collapsedRow.children('td');
+                for (var i = 0; i < columns.length; i++) {
+                    var column = columns.eq(i),
+                    toggler = column.children('.ui-row-toggler');
+
+                    if (toggler.length) {
+                        toggler.addClass('fa-chevron-circle-down').removeClass('fa-chevron-circle-right');
+                    }
+                }
+            })
+            
+        },
+
+        getCollapsedRows: function () {
+            return this.tbody.children().not('.ui-expanded-row');
+        },
+
         _createStateMeta: function() {
             var state = {
                 first: this._getFirst(),
