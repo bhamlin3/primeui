@@ -935,6 +935,8 @@
         expandAllRows: function() {
             var $this = this;
 
+            this.collapseAllRows();
+
             this.getCollapsedRows().each(function () {
                 var collapsedRow = $(this);
                 $this.loadExpandedRowContent(collapsedRow);
