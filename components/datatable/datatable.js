@@ -56,7 +56,8 @@
             colReorder: null,
             colResize: null,
             rowReorder: null,
-            cellEdit: null
+            cellEdit: null,
+            filterEvent: null
         },
 
         _create: function() {
@@ -1603,6 +1604,7 @@
 
                 this._renderData();
             }
+            this._trigger('filterEvent', null, {'rowCount' : this.filteredData ? this.filteredData.length : this.data ? this.data.length : 0});
         },
 
         filterConstraints: {

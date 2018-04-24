@@ -30,6 +30,12 @@
                     rows: 10
                 }
             });
+
+            $('#tblfilter').puidatatable({
+                filterEvent: function(event, rowCount) {
+                    alert(JSON.stringify(rowCount));
+                }
+            })
             
             $('#globalFilter').puiinputtext();
             $('#doc').puitabview();
