@@ -32,8 +32,8 @@
             });
 
             $('#tblfilter').puidatatable({
-                filterEvent: function(event, rowCount) {
-                    alert(JSON.stringify(rowCount));
+                filterEvent: function(event, data) {
+                    alert(JSON.stringify(data));
                 }
             })
             
